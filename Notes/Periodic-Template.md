@@ -182,7 +182,7 @@ class PeriodicNote {
             makeDir(dir);
         }
 
-        return
+        return;
     }
 
     async tryMove() {
@@ -262,50 +262,26 @@ class PeriodicNote {
             return navLinks;
         }
 
-        // Build the note out
-        let yearHeader = "\n".join([
-            `${breadcrumbsString()}`,
-            `# ${this.moment.format(getTitleFormat())}`,
-            `${getNavLinks()}`,
-            "\n"
-        ]);
-        let quarterHeader = "\n".join([
-            `${breadcrumbsString()}`,
-            `# ${this.moment.format(getTitleFormat())}`,
-            `${getNavLinks()}`,
-            "\n"
-        ]);
-        let monthHeader = "\n".join([
-            `${breadcrumbsString()}`,
-            `# ${this.moment.format(getTitleFormat())}`,
-            `${getNavLinks()}`,
-            "\n"
-        ]);
-        let weekHeader = "\n".join([
-            `${breadcrumbsString()}`,
-            `# ${this.moment.format(getTitleFormat())}`,
-            `${getNavLinks()}`,
-            "\n"
-        ]);
-        let dayHeader = "\n".join([
-            `${breadcrumbsString()}`,
-            `# ${this.moment.format(getTitleFormat())}`,
-            `${getNavLinks()}`,
-            "\n"
-        ]);
+        tR += `${breadcrumbsString()}\n`;
+        tR += `# ${this.moment.format(getTitleFormat())}\n`;
+        tR += `${getNavLinks()}\n\n`;
         
+        // Build the note out
         switch (this.noteType) {
-            case "year": tR += yearHeader; tp.file.include(`[[${TEMPLATE_PATHS.year.path}]]`); break;
-            case "quarter": tR += quarterHeader; tp.file.include(`[[${TEMPLATE_PATHS.quarter.path}]]`); break;
-            case "month": tR += monthHeader; tp.file.include(`[[${TEMPLATE_PATHS.month.path}]]`); break;
-            case "week": tR += weekHeader; tp.file.include(`[[${TEMPLATE_PATHS.week.path}]]`); break;
-            case "day": tR += dayHeader; tp.file.include(`[[${TEMPLATE_PATHS.day.path}]]`); break;
-            default: tR += dayHeader; tp.file.include(`[[${TEMPLATE_PATHS.day.path}]]`); break;
+            case "year": tp.file.include(`[[${TEMPLATE_PATHS.year.path}]]`); break;
+            case "quarter": tp.file.include(`[[${TEMPLATE_PATHS.quarter.path}]]`); break;
+            case "month": tp.file.include(`[[${TEMPLATE_PATHS.month.path}]]`); break;
+            case "week": tp.file.include(`[[${TEMPLATE_PATHS.week.path}]]`); break;
+            case "day": tp.file.include(`[[${TEMPLATE_PATHS.day.path}]]`); break;
+            default: tp.file.include(`[[${TEMPLATE_PATHS.day.path}]]`); break;
         }
+
+        return;
     }
 }
 
 let thisNote = new PeriodicNote(tp.file.title);
 thisNote.fillTemplate();
 thisNote.tryMove();
+
 %>
